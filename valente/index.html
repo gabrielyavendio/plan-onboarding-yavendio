@@ -134,6 +134,10 @@ dd { margin: 2px 0 0; font-size: 14px; }
 .mid-f button, .mid-c { font: inherit; font-weight: 700; border: 0; border-radius: 8px; padding: 10px 16px; background: #6A2F65; color: #fff; cursor: pointer; }
 .mid-c { background: transparent; color: var(--brand-2); border: 1.5px solid var(--brand-2); }
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.sync { margin: 0; font-size: 13px; font-weight: 600; color: var(--dim); }
+.sync:empty { display: none; }
+.sync.ok { color: #15803D; }
+.sync.warn { color: #C2410C; }
 .footer-bar { background: var(--hl); color: var(--hl-ink); font-weight: 700; font-size: 13px; letter-spacing: .04em; min-height: 34px; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 0 20px; flex-wrap: wrap; }
 </style>
 
@@ -172,7 +176,8 @@ dd { margin: 2px 0 0; font-size: 14px; }
   <section class="prog" aria-live="polite">
     <div class="prog-head"><div><div class="kicker">Tu avance</div><b id="progTxt">0 de 0 pasos completados</b></div><span id="progPct">0%</span></div>
     <div class="track"><i id="progBar"></i></div>
-    <p class="note">Marca cada paso con «Lo completé» a medida que avanzas. Tu avance se guarda en este navegador; cuéntanos en la sesión de dudas cómo vas.</p>
+    <p class="note">Marca cada paso con «Lo completé» a medida que avanzas. Tu avance se guarda en línea: lo ve cualquiera que abra este link, incluido nuestro equipo.</p>
+    <p class="sync" id="syncState" aria-live="polite"></p>
   </section>
 
   <section class="sec">
@@ -314,6 +319,16 @@ dd { margin: 2px 0 0; font-size: 14px; }
 <div class="footer-bar"><span>yavendió! · Vende con IA tus productos en WhatsApp</span><span>yavendio.com</span></div>
 <script>
 const KEY = "plan-yavendio." + "valente.2026-09-29" + ".";
+const SYNC = "https://script.google.com/macros/s/AKfycbz9ST02RYsL3NvR47lUev9eQXLMF0tjTAuVPpru7Rm5jbLViZCtvBAztndt9p2fnEhFWQ/exec";
+const SLUG = "valente";
+const BAKED_ID = "";
+const state = {};
+const boxes = [...document.querySelectorAll(".check input, .mark input")];
+const syncEl = document.getElementById("syncState");
+function lsGet(k) { try { return localStorage.getItem(KEY + k); } catch (e) { return null; } }
+function lsSet(k, v) { try { localStorage.setItem(KEY + k, v); } catch (e) {} }
+function setSync(kind, text) { if (syncEl) { syncEl.className = "sync " + kind; syncEl.textContent = text; } }
+
 function update() {
   const tasks = [...document.querySelectorAll(".mark input")];
   const done = tasks.filter(x => x.checked).length;
@@ -330,29 +345,71 @@ function update() {
     document.querySelector('[data-rn="' + id + '"]')?.classList.toggle("is-done", n === list.length);
   });
 }
-document.querySelectorAll(".check input, .mark input").forEach(el => {
-  try { el.checked = localStorage.getItem(KEY + el.id) === "1"; } catch (e) {}
-  el.addEventListener("change", () => { try { localStorage.setItem(KEY + el.id, el.checked ? "1" : "0"); } catch (e) {} update(); });
-});
-update();
-(function () {
-  const baked = "";
-  const val = document.getElementById("midVal"), form = document.getElementById("midForm"), inp = document.getElementById("midIn"), copy = document.getElementById("midCopy"), hint = document.getElementById("midHint");
-  function show(id) {
-    val.textContent = id || "Pendiente";
-    copy.hidden = !id;
-    form.hidden = !!baked || !!id;
-    if (id && !baked) hint.textContent = "Guardado en este navegador. Tenlo a mano para las sesiones de dudas.";
+
+// merchant ID
+const val = document.getElementById("midVal"), form = document.getElementById("midForm"), inp = document.getElementById("midIn"), copy = document.getElementById("midCopy"), hint = document.getElementById("midHint");
+function showId(id) {
+  val.textContent = id || "Pendiente";
+  copy.hidden = !id;
+  if (document.activeElement !== inp) form.hidden = !!BAKED_ID || !!id;
+  if (id && !BAKED_ID) hint.textContent = SYNC ? "Guardado para todo el equipo. Doble clic sobre el ID para corregirlo." : "Guardado en este navegador. Doble clic sobre el ID para corregirlo.";
+}
+
+function apply() {
+  boxes.forEach(b => { b.checked = state[b.id] === "1"; });
+  showId(BAKED_ID || state.merchantId || "");
+  update();
+}
+
+let pending = 0;
+async function save(clave, valor) {
+  state[clave] = valor; lsSet(clave, valor); apply();
+  if (!SYNC) return;
+  pending++; setSync("", "Guardando…");
+  const post = async () => {
+    const r = await fetch(SYNC, { method: "POST", body: JSON.stringify({ merchant: SLUG, clave, valor }) });
+    const j = await r.json(); if (!j.ok) throw new Error(j.error);
+  };
+  // Google a veces responde mal aunque sí guardó: si falla, confirmamos leyendo y reintentamos una vez
+  const stored = async () => {
+    try { const j = await (await fetch(SYNC + "?merchant=" + SLUG + "&t=" + Date.now())).json(); return j.ok && j.data[clave] === valor; } catch (e) { return false; }
+  };
+  try {
+    try { await post(); } catch (e) { if (!(await stored())) { await post(); } }
+    setSync("ok", "Guardado · lo ve todo el equipo");
+  } catch (e) {
+    if (await stored()) setSync("ok", "Guardado · lo ve todo el equipo");
+    else setSync("warn", "No se pudo guardar en línea. Quedó en este navegador; revisa tu conexión y vuelve a marcarlo.");
   }
-  let saved = ""; try { saved = localStorage.getItem(KEY + "merchantId") || ""; } catch (e) {}
-  show(baked || saved);
-  form.addEventListener("submit", e => { e.preventDefault(); const id = inp.value.trim(); if (!id) return; try { localStorage.setItem(KEY + "merchantId", id); } catch (e) {} show(id); });
-  val.addEventListener("dblclick", () => { if (baked) return; form.hidden = false; inp.value = val.textContent === "Pendiente" ? "" : val.textContent; inp.focus(); });
-  copy.addEventListener("click", async () => {
-    try { await navigator.clipboard.writeText(val.textContent); copy.textContent = "Copiado"; }
-    catch (e) { const r = document.createRange(); r.selectNodeContents(val); const s = getSelection(); s.removeAllRanges(); s.addRange(r); copy.textContent = "Selecciónalo y cópialo"; }
-    setTimeout(() => { copy.textContent = "Copiar"; }, 2000);
-  });
-})();
+  finally { pending--; }
+}
+async function pull() {
+  if (!SYNC || pending) return;
+  try {
+    const r = await fetch(SYNC + "?merchant=" + SLUG + "&t=" + Date.now());
+    const j = await r.json(); if (!j.ok) throw new Error(j.error);
+    if (pending) return;
+    Object.assign(state, j.data); apply();
+    setSync("ok", "Sincronizado · lo ve todo el equipo");
+  } catch (e) { setSync("warn", "Sin conexión: por ahora los cambios se guardan solo en este navegador."); }
+}
+
+boxes.forEach(b => { const v = lsGet(b.id); if (v !== null) state[b.id] = v; b.addEventListener("change", () => save(b.id, b.checked ? "1" : "0")); });
+{ const v = lsGet("merchantId"); if (v) state.merchantId = v; }
+form.addEventListener("submit", e => { e.preventDefault(); const id = inp.value.trim(); if (!id) return; inp.blur(); form.hidden = true; save("merchantId", id); });
+val.addEventListener("dblclick", () => { if (BAKED_ID) return; form.hidden = false; inp.value = val.textContent === "Pendiente" ? "" : val.textContent; inp.focus(); });
+copy.addEventListener("click", async () => {
+  try { await navigator.clipboard.writeText(val.textContent); copy.textContent = "Copiado"; }
+  catch (e) { const r = document.createRange(); r.selectNodeContents(val); const s = getSelection(); s.removeAllRanges(); s.addRange(r); copy.textContent = "Selecciónalo y cópialo"; }
+  setTimeout(() => { copy.textContent = "Copiar"; }, 2000);
+});
+
+apply();
+if (SYNC) {
+  setSync("", "Cargando avance…");
+  pull();
+  setInterval(() => { if (!document.hidden) pull(); }, 20000);
+  document.addEventListener("visibilitychange", () => { if (!document.hidden) pull(); });
+}
 </script>
 </body></html>
