@@ -319,6 +319,8 @@ dd { margin: 2px 0 0; font-size: 14px; }
 <div class="footer-bar"><span>yavendió! · Vende con IA tus productos en WhatsApp</span><span>yavendio.com</span></div>
 <script>
 const KEY = "plan-yavendio." + "valente.2026-09-29" + ".";
+// Google puede tardar; sin límite, un pedido colgado bloquearía la sincronización
+const sfetch = (u, o = {}) => fetch(u, { ...o, signal: AbortSignal.timeout ? AbortSignal.timeout(20000) : undefined });
 const SYNC = "https://script.google.com/macros/s/AKfycbz9ST02RYsL3NvR47lUev9eQXLMF0tjTAuVPpru7Rm5jbLViZCtvBAztndt9p2fnEhFWQ/exec";
 const SLUG = "valente";
 const BAKED_ID = "";
@@ -367,12 +369,12 @@ async function save(clave, valor) {
   if (!SYNC) return;
   pending++; setSync("", "Guardando…");
   const post = async () => {
-    const r = await fetch(SYNC, { method: "POST", body: JSON.stringify({ merchant: SLUG, clave, valor }) });
+    const r = await sfetch(SYNC, { method: "POST", body: JSON.stringify({ merchant: SLUG, clave, valor }) });
     const j = await r.json(); if (!j.ok) throw new Error(j.error);
   };
   // Google a veces responde mal aunque sí guardó: si falla, confirmamos leyendo y reintentamos una vez
   const stored = async () => {
-    try { const j = await (await fetch(SYNC + "?merchant=" + SLUG + "&t=" + Date.now())).json(); return j.ok && j.data[clave] === valor; } catch (e) { return false; }
+    try { const j = await (await sfetch(SYNC + "?merchant=" + SLUG + "&t=" + Date.now())).json(); return j.ok && j.data[clave] === valor; } catch (e) { return false; }
   };
   try {
     try { await post(); } catch (e) { if (!(await stored())) { await post(); } }
@@ -386,7 +388,7 @@ async function save(clave, valor) {
 async function pull() {
   if (!SYNC || pending) return;
   try {
-    const r = await fetch(SYNC + "?merchant=" + SLUG + "&t=" + Date.now());
+    const r = await sfetch(SYNC + "?merchant=" + SLUG + "&t=" + Date.now());
     const j = await r.json(); if (!j.ok) throw new Error(j.error);
     if (pending) return;
     // la hoja manda: reemplaza lo local para que todos vean lo mismo
