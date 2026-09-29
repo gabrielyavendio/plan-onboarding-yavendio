@@ -377,7 +377,8 @@ async function save(clave, valor) {
     try { const j = await (await sfetch(SYNC + "?merchant=" + SLUG + "&t=" + Date.now())).json(); return j.ok && j.data[clave] === valor; } catch (e) { return false; }
   };
   try {
-    try { await post(); } catch (e) { if (!(await stored())) { await post(); } }
+    // solo reintenta si nadie cambió ese paso mientras tanto (evita revivir un check ya desmarcado)
+    try { await post(); } catch (e) { if (state[clave] === valor && !(await stored())) { await post(); } }
     setSync("ok", "Guardado · lo ve todo el equipo");
   } catch (e) {
     if (await stored()) setSync("ok", "Guardado · lo ve todo el equipo");
