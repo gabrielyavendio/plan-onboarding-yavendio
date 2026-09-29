@@ -389,7 +389,12 @@ async function pull() {
     const r = await fetch(SYNC + "?merchant=" + SLUG + "&t=" + Date.now());
     const j = await r.json(); if (!j.ok) throw new Error(j.error);
     if (pending) return;
-    Object.assign(state, j.data); apply();
+    // la hoja manda: reemplaza lo local para que todos vean lo mismo
+    Object.keys(state).forEach(k => { delete state[k]; });
+    Object.assign(state, j.data);
+    Object.entries(state).forEach(([k, v]) => lsSet(k, v));
+    boxes.forEach(b => { if (!(b.id in state)) lsSet(b.id, "0"); });
+    apply();
     setSync("ok", "Sincronizado · lo ve todo el equipo");
   } catch (e) { setSync("warn", "Sin conexión: por ahora los cambios se guardan solo en este navegador."); }
 }
