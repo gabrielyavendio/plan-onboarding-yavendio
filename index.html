@@ -384,6 +384,7 @@ async function save(clave, valor) {
   }
   finally { pending--; }
 }
+let pullFails = 0;
 async function pull() {
   if (!SYNC || pending) return;
   try {
@@ -396,8 +397,12 @@ async function pull() {
     Object.entries(state).forEach(([k, v]) => lsSet(k, v));
     boxes.forEach(b => { if (!(b.id in state)) lsSet(b.id, "0"); });
     apply();
+    pullFails = 0;
     setSync("ok", "Sincronizado · lo ve todo el equipo");
-  } catch (e) { setSync("warn", "Sin conexión: por ahora los cambios se guardan solo en este navegador."); }
+  } catch (e) {
+    // un fallo suelto de Google es normal; avisamos solo si se repite
+    if (++pullFails >= 2) setSync("warn", "Sin conexión: por ahora los cambios se guardan solo en este navegador.");
+  }
 }
 
 boxes.forEach(b => { const v = lsGet(b.id); if (v !== null) state[b.id] = v; b.addEventListener("change", () => save(b.id, b.checked ? "1" : "0")); });
