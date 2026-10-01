@@ -101,11 +101,25 @@ dd { margin: 2px 0 0; font-size: 14px; }
 .check input:checked + span { color: var(--dim); text-decoration: line-through; }
 @media (max-width: 680px) { .check { grid-template-columns: 1fr; } }
 :focus-visible { outline: 2px solid var(--brand-2); outline-offset: 2px; }
+.vid { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--fg); border: 1px solid var(--line); border-radius: 10px; padding: 8px 14px 8px 8px; max-width: 520px; background: var(--surface); }
+.vid:hover { border-color: var(--brand-2); }
+.vid img { width: 112px; height: 63px; object-fit: cover; border-radius: 6px; background: var(--tint); flex: none; }
+.vid span { display: flex; flex-direction: column; font-weight: 700; font-size: 14px; line-height: 1.3; min-width: 0; }
+.vid small { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--brand-2); }
+.vid b { margin-left: auto; width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; background: #6A2F65; color: #fff; font-size: 12px; flex: none; }
+@media (max-width: 420px) { .vid img { width: 84px; height: 47px; } }
 .mark { display: inline-flex; align-self: flex-start; gap: 10px; align-items: center; border: 1.5px solid var(--line); border-radius: 999px; padding: 7px 14px 7px 10px; font-weight: 700; font-size: 14px; cursor: pointer; }
 .mark:hover { border-color: var(--brand-2); }
 .mark input { width: 18px; height: 18px; accent-color: #6A2F65; margin: 0; }
 .tasks li.is-done h4 { color: var(--dim); text-decoration: line-through; }
-.tasks li.is-done .mark { background: var(--tint); border-color: var(--brand-2); color: var(--brand-2); }
+.tasks li.is-done .vid { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--fg); border: 1px solid var(--line); border-radius: 10px; padding: 8px 14px 8px 8px; max-width: 520px; background: var(--surface); }
+.vid:hover { border-color: var(--brand-2); }
+.vid img { width: 112px; height: 63px; object-fit: cover; border-radius: 6px; background: var(--tint); flex: none; }
+.vid span { display: flex; flex-direction: column; font-weight: 700; font-size: 14px; line-height: 1.3; min-width: 0; }
+.vid small { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--brand-2); }
+.vid b { margin-left: auto; width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; background: #6A2F65; color: #fff; font-size: 12px; flex: none; }
+@media (max-width: 420px) { .vid img { width: 84px; height: 47px; } }
+.mark { background: var(--tint); border-color: var(--brand-2); color: var(--brand-2); }
 .pc { margin-left: auto; font-size: 13px; font-weight: 700; color: var(--brand-2); font-variant-numeric: tabular-nums; white-space: nowrap; }
 .pc.full { background: var(--hl); color: var(--hl-ink); padding: 2px 10px; border-radius: 999px; }
 .bar.is-done { text-decoration: line-through; text-decoration-thickness: 2px; opacity: .55; }
@@ -208,6 +222,7 @@ dd { margin: 2px 0 0; font-size: 14px; }
     <ol class="tasks"><li data-task="k1"><div class="th"><h4>Kickoff con yavendió!</h4><span class="when">jue 1 oct</span></div>
       <p>Qué es yavendió!, los 3 problemas que resuelve (inmediatez, tareas repetitivas, publicidad fuera de horario) y el plan de 2 semanas.</p>
       <dl><div><dt>Dónde</dt><dd>Videollamada con yavendió!.</dd></div><div><dt>Listo cuando</dt><dd>Conoces el plan y tu fecha de salida en vivo.</dd></div></dl>
+      <a class="vid" href="https://www.youtube.com/watch?v=OD4cXbN1-qg" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/OD4cXbN1-qg/mqdefault.jpg" alt="" width="112" height="63" loading="lazy"><span><small>Video tutorial</small>¿Qué es Yavendió!</span><b aria-hidden="true">▶</b></a>
       <label class="mark" for="t-k1"><input type="checkbox" id="t-k1" data-phase="k"><span>Lo completé</span></label></li><li data-task="k2"><div class="th"><h4>Crear cuenta en ya.onl</h4><span class="when">jue 1 oct</span></div>
       <p>Registro, datos de la empresa (país, moneda, rubro) y entrada al asistente Yago.</p>
       <dl><div><dt>Dónde</dt><dd><code>ya.onl/sign-up</code> → crear organización → llega a <code>/dashboard/get-started</code>. Yago puede armar ahí una primera versión del vendedor en minutos.</dd></div><div><dt>Listo cuando</dt><dd>Llegas a la pantalla de inicio con Yago y guardas tu merchant ID arriba en este plan.</dd></div></dl>
@@ -230,25 +245,31 @@ dd { margin: 2px 0 0; font-size: 14px; }
     <ol class="tasks"><li data-task="n1"><div class="th"><h4>Mi negocio</h4><span class="when">vie 2 oct</span></div>
       <p>Descripción del negocio, público objetivo y redes sociales. El vendedor no inventa: es un espejo del negocio.</p>
       <dl><div><dt>Dónde</dt><dd><code>/dashboard/assistant-settings/my-business</code></dd></div><div><dt>Listo cuando</dt><dd>Descripción clara del negocio y su público.</dd></div></dl>
+      <a class="vid" href="https://www.youtube.com/watch?v=kkFti-ZAelc" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/kkFti-ZAelc/mqdefault.jpg" alt="" width="112" height="63" loading="lazy"><span><small>Video tutorial</small>Completa los datos de tu negocio</span><b aria-hidden="true">▶</b></a>
       <label class="mark" for="t-n1"><input type="checkbox" id="t-n1" data-phase="n"><span>Lo completé</span></label></li><li data-task="n2"><div class="th"><h4>Personalidad del vendedor</h4><span class="when">vie 2 oct</span></div>
       <p>Nombre, género, tono, largo de respuesta, emojis y palabras a evitar.</p>
       <dl><div><dt>Dónde</dt><dd><code>/dashboard/assistant-settings/seller-configure?tab=personality</code></dd></div><div><dt>Listo cuando</dt><dd>Nombre y tono definidos.</dd></div></dl>
+      <a class="vid" href="https://www.youtube.com/watch?v=zVtib7Rit5Y" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/zVtib7Rit5Y/mqdefault.jpg" alt="" width="112" height="63" loading="lazy"><span><small>Video tutorial</small>Define la personalidad de tu vendedor</span><b aria-hidden="true">▶</b></a>
       <label class="mark" for="t-n2"><input type="checkbox" id="t-n2" data-phase="n"><span>Lo completé</span></label></li></ol></section><section class="phase" id="r">
     <header><span class="num p4">4</span><div><h3>Mensajes, envíos y pagos</h3><p>sáb 3 oct</p></div><span class="pc" data-pc="r"></span></header>
     <ol class="tasks"><li data-task="r2"><div class="th"><h4>Mensajes</h4><span class="when">sáb 3 oct</span></div>
       <p>Bienvenida, despedida, derivación a humano y horarios de atención.</p>
       <dl><div><dt>Dónde</dt><dd>Configuración del vendedor, en <code>/dashboard/assistant-settings</code>.</dd></div><div><dt>Listo cuando</dt><dd>Los 4 mensajes configurados.</dd></div></dl>
+      <a class="vid" href="https://www.youtube.com/watch?v=ivd0PMNLAqU" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/ivd0PMNLAqU/mqdefault.jpg" alt="" width="112" height="63" loading="lazy"><span><small>Video tutorial</small>Configura los mensajes de tu vendedor</span><b aria-hidden="true">▶</b></a>
       <label class="mark" for="t-r2"><input type="checkbox" id="t-r2" data-phase="r"><span>Lo completé</span></label></li><li data-task="r3"><div class="th"><h4>Envíos y plazos</h4><span class="when">sáb 3 oct</span></div>
       <p>Zonas de cobertura, tipo de entrega, costos y tiempos.</p>
       <dl><div><dt>Dónde</dt><dd><code>/dashboard/assistant-settings/delivery</code></dd></div><div><dt>Listo cuando</dt><dd>Zonas activas y el vendedor cotiza bien un envío.</dd></div></dl>
+      <a class="vid" href="https://www.youtube.com/watch?v=sGv5bhOFbKw" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/sGv5bhOFbKw/mqdefault.jpg" alt="" width="112" height="63" loading="lazy"><span><small>Video tutorial</small>Configura tus envíos y zonas de entrega</span><b aria-hidden="true">▶</b></a>
       <label class="mark" for="t-r3"><input type="checkbox" id="t-r3" data-phase="r"><span>Lo completé</span></label></li><li data-task="r4"><div class="th"><h4>Métodos de pago</h4><span class="when">sáb 3 oct</span></div>
       <p>Mercado Pago (link de pago automático en el chat) o Yape, Plin y transferencia (se validan a mano con el comprobante).</p>
       <dl><div><dt>Dónde</dt><dd><code>/dashboard/assistant-settings/payments</code></dd></div><div><dt>Listo cuando</dt><dd>El vendedor ofrece solo los medios configurados.</dd></div></dl>
+      <a class="vid" href="https://www.youtube.com/watch?v=G4q6JH4H3iY" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/G4q6JH4H3iY/mqdefault.jpg" alt="" width="112" height="63" loading="lazy"><span><small>Video tutorial</small>Configura los métodos de pago de tu vendedor</span><b aria-hidden="true">▶</b></a>
       <label class="mark" for="t-r4"><input type="checkbox" id="t-r4" data-phase="r"><span>Lo completé</span></label></li></ol></section><section class="phase" id="b">
     <header><span class="num p5">5</span><div><h3>Base de conocimiento</h3><p>sáb 3 oct</p></div><span class="pc" data-pc="b"></span></header>
     <ol class="tasks"><li data-task="b1"><div class="th"><h4>Preguntas frecuentes</h4><span class="when">sáb 3 oct</span></div>
       <p>7 categorías: negocio, productos, precios y pagos, envíos, cambios y devoluciones, datos del checkout, y clientes frustrados. Si no hay política definida, mejor no responder sobre eso.</p>
       <dl><div><dt>Dónde</dt><dd>Base de conocimiento, en la configuración del vendedor.</dd></div><div><dt>Listo cuando</dt><dd>Al menos las 3 primeras categorías completas.</dd></div></dl>
+      <a class="vid" href="https://www.youtube.com/watch?v=t_Lfw31A45Q" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/t_Lfw31A45Q/mqdefault.jpg" alt="" width="112" height="63" loading="lazy"><span><small>Video tutorial</small>Arma las preguntas frecuentes de tu vendedor</span><b aria-hidden="true">▶</b></a>
       <label class="mark" for="t-b1"><input type="checkbox" id="t-b1" data-phase="b"><span>Lo completé</span></label></li></ol></section><section class="phase" id="f">
     <header><span class="num p6">6</span><div><h3>Flujos de venta</h3><p>dom 4 oct → lun 5 oct</p></div><span class="pc" data-pc="f"></span></header>
     <ol class="tasks"><li data-task="f1"><div class="th"><h4>Revisar el flujo base</h4><span class="when">dom 4 oct</span></div>
@@ -268,6 +289,7 @@ dd { margin: 2px 0 0; font-size: 14px; }
       <label class="mark" for="t-p1"><input type="checkbox" id="t-p1" data-phase="p"><span>Lo completé</span></label></li><li data-task="p2"><div class="th"><h4>Gestión de pedidos en el chat</h4><span class="when">lun 5 oct</span></div>
       <p>Crear y consultar el pedido desde la conversación: estado, cliente, productos, pago y entrega.</p>
       <dl><div><dt>Dónde</dt><dd>Conversaciones: bandeja unificada de WhatsApp e Instagram.</dd></div><div><dt>Listo cuando</dt><dd>Puedes crear y actualizar un pedido desde un chat.</dd></div></dl>
+      <a class="vid" href="https://www.youtube.com/watch?v=boDpf7JfRNo" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/boDpf7JfRNo/mqdefault.jpg" alt="" width="112" height="63" loading="lazy"><span><small>Video tutorial</small>Gestiona tus pedidos cerrados</span><b aria-hidden="true">▶</b></a>
       <label class="mark" for="t-p2"><input type="checkbox" id="t-p2" data-phase="p"><span>Lo completé</span></label></li><li data-task="p3"><div class="th"><h4>Filtros y recordatorios</h4><span class="when">lun 5 oct</span></div>
       <p>Filtros (sin responder, pedidos pendientes, clientes interesados) y recordatorios (sin respuesta, pedidos incompletos a 1 h, 24 h o 3 días, pago pendiente).</p>
       <dl><div><dt>Dónde</dt><dd>Conversaciones → filtros y recordatorios.</dd></div><div><dt>Listo cuando</dt><dd>Recordatorio de pedido incompleto activo.</dd></div></dl>
@@ -293,6 +315,8 @@ dd { margin: 2px 0 0; font-size: 14px; }
       <label class="mark" for="t-g2"><input type="checkbox" id="t-g2" data-phase="g"><span>Lo completé</span></label></li><li data-task="g3"><div class="th"><h4>Métricas y Meta Ads</h4><span class="when">mié 7 oct</span></div>
       <p>Conversaciones, tiempos de respuesta, pedidos y conversión; qué campañas generan conversaciones y cuáles terminan en venta.</p>
       <dl><div><dt>Dónde</dt><dd>Métricas del dashboard.</dd></div><div><dt>Listo cuando</dt><dd>Sabes leer tus métricas principales.</dd></div></dl>
+      <a class="vid" href="https://www.youtube.com/watch?v=VdAwMRhC3c0" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/VdAwMRhC3c0/mqdefault.jpg" alt="" width="112" height="63" loading="lazy"><span><small>Video tutorial</small>Mide el rendimiento de tus campañas de Meta Ads a WhatsApp</span><b aria-hidden="true">▶</b></a>
+      <a class="vid" href="https://www.youtube.com/watch?v=os5u26Yfksk" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/os5u26Yfksk/mqdefault.jpg" alt="" width="112" height="63" loading="lazy"><span><small>Video tutorial</small>Optimiza tus campañas con eventos (API Conversiones)</span><b aria-hidden="true">▶</b></a>
       <label class="mark" for="t-g3"><input type="checkbox" id="t-g3" data-phase="g"><span>Lo completé</span></label></li></ol></section></div>
   </section>
 
