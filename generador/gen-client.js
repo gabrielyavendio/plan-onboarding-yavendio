@@ -258,8 +258,8 @@ dd { margin: 2px 0 0; font-size: 14px; }
     ${CFG.logoText ? `<span class="x" aria-hidden="true">×</span>
     <span class="ptext" style="background:${CFG.logoTextBg || "#2F3A5A"}">${esc(CFG.logoText)}</span>` : ""}
     ${CFG.logoBlack ? `<span class="x" aria-hidden="true">×</span>
-    <img class="plogo black" alt="${esc(MERCHANT)}" src="${img(CFG.logoBlack)}">
-    <img class="plogo white" alt="${esc(MERCHANT)}" src="${img(CFG.logoWhite || CFG.logoBlack)}">` : ""}
+    <img class="plogo black" alt="${esc(MERCHANT)}" src="${img(CFG.logoBlack)}"${CFG.logoHeight ? ` style="height:${CFG.logoHeight}px"` : ""}>
+    <img class="plogo white" alt="${esc(MERCHANT)}" src="${img(CFG.logoWhite || CFG.logoBlack)}"${CFG.logoHeight ? ` style="height:${CFG.logoHeight}px"` : ""}>` : ""}
   </header>
 
   <section class="hero">

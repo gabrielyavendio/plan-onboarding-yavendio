@@ -1,0 +1,194 @@
+{
+ "start": "2026-10-21",
+ "merchant": "Fuse Apparel",
+ "merchantId": "",
+ "shopify": true,
+ "calendarDays": true,
+ "syncUrl": "https://script.google.com/macros/s/AKfycbz9ST02RYsL3NvR47lUev9eQXLMF0tjTAuVPpru7Rm5jbLViZCtvBAztndt9p2fnEhFWQ/exec",
+ "out": "fuse-apparel",
+ "videos": {
+  "k1": [
+   {
+    "id": "OD4cXbN1-qg",
+    "title": "¿Qué es Yavendió!",
+    "n": 1
+   }
+  ],
+  "n1": [
+   {
+    "id": "kkFti-ZAelc",
+    "title": "Completa los datos de tu negocio",
+    "n": 7
+   }
+  ],
+  "n2": [
+   {
+    "id": "zVtib7Rit5Y",
+    "title": "Define la personalidad de tu vendedor",
+    "n": 10
+   }
+  ],
+  "r2": [
+   {
+    "id": "ivd0PMNLAqU",
+    "title": "Configura los mensajes de tu vendedor",
+    "n": 11
+   }
+  ],
+  "r3": [
+   {
+    "id": "sGv5bhOFbKw",
+    "title": "Configura tus envíos y zonas de entrega",
+    "n": 8
+   }
+  ],
+  "r4": [
+   {
+    "id": "G4q6JH4H3iY",
+    "title": "Configura los métodos de pago de tu vendedor",
+    "n": 9
+   }
+  ],
+  "b1": [
+   {
+    "id": "t_Lfw31A45Q",
+    "title": "Arma las preguntas frecuentes de tu vendedor",
+    "n": 13
+   }
+  ],
+  "p2": [
+   {
+    "id": "boDpf7JfRNo",
+    "title": "Gestiona tus pedidos cerrados",
+    "n": 14
+   }
+  ],
+  "g3": [
+   {
+    "id": "VdAwMRhC3c0",
+    "title": "Mide el rendimiento de tus campañas de Meta Ads a WhatsApp",
+    "n": 30
+   },
+   {
+    "id": "os5u26Yfksk",
+    "title": "Optimiza tus campañas con eventos (API Conversiones)",
+    "n": 31
+   }
+  ],
+  "f1": [
+   {
+    "drive": "1Ewl0NBGxfg9xSLtl3lGDXPzFXmSuLq84",
+    "title": "Configura los flujos y reglas de tu vendedor",
+    "n": 12
+   }
+  ]
+ },
+ "logoBlack": "logos/fuse-negro.png",
+ "logoWhite": "logos/fuse-blanco.png",
+ "days": 7,
+ "periodLabel": "1 semana",
+ "periodLabelTitle": "7 días",
+ "schedule": {
+  "k1": [
+   0,
+   1
+  ],
+  "k2": [
+   0,
+   1
+  ],
+  "k3": [
+   0,
+   1
+  ],
+  "c1": [
+   0,
+   1
+  ],
+  "c2": [
+   1,
+   1
+  ],
+  "c3": [
+   1,
+   1
+  ],
+  "n1": [
+   1,
+   1
+  ],
+  "n2": [
+   1,
+   1
+  ],
+  "r2": [
+   2,
+   1
+  ],
+  "r3": [
+   2,
+   1
+  ],
+  "r4": [
+   2,
+   1
+  ],
+  "b1": [
+   2,
+   1
+  ],
+  "f1": [
+   3,
+   1
+  ],
+  "f2": [
+   3,
+   2
+  ],
+  "f3": [
+   4,
+   1
+  ],
+  "p1": [
+   4,
+   1
+  ],
+  "p2": [
+   4,
+   1
+  ],
+  "p3": [
+   4,
+   1
+  ],
+  "w1": [
+   5,
+   1
+  ],
+  "w2": [
+   5,
+   1
+  ],
+  "w3": [
+   5,
+   1
+  ],
+  "g1": [
+   6,
+   1
+  ],
+  "g2": [
+   6,
+   1
+  ],
+  "g3": [
+   6,
+   1
+  ],
+  "g4": [
+   6,
+   1
+  ]
+ },
+ "logoHeight": 26
+}
