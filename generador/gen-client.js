@@ -28,10 +28,14 @@ if (CFG.shopify) Object.assign(CLIENT, {
   c2: { name: "Revisar el catálogo sincronizado", desc: "Confirma que llegaron todos tus productos. Precio, stock, fotos y descripción se siguen editando siempre en Shopify.", check: "Todos tus productos están en el panel." },
   c3: { desc: "Cada producto con precio, fotos, tallas y colores correctos. Si algo falta, corrígelo en Shopify y se actualiza aquí." },
 });
+// ajustes de texto propios de un merchant (p. ej. medios de pago de otro país)
+if (CFG.overrides) for (const [id, o] of Object.entries(CFG.overrides)) CLIENT[id] = { ...(CLIENT[id] || {}), ...o };
 PHASES.forEach(p => p.tasks.forEach(t => Object.assign(t, CLIENT[t.id] || {})));
 // planes más cortos (p. ej. 1 semana) traen su propio calendario: { id: [día, duración] }
 if (CFG.schedule) PHASES.forEach(p => p.tasks.forEach(t => { const x = CFG.schedule[t.id]; if (x) { t.d = x[0]; t.len = x[1]; } }));
 const N = CFG.days || 10;
+// hora de las sesiones en la zona del merchant (las sesiones son 8:00 am hora de Lima)
+const TIME = CFG.sessionTime || "8:00 am", TIMES = TIME.replace(/ ?am$/, ""), TZ = CFG.sessionTz ? " " + CFG.sessionTz : "";
 const PERIOD = CFG.periodLabel || (CFG.calendarDays ? "10 días" : "2 semanas");
 const img = f => "data:image/png;base64," + fs.readFileSync(f).toString("base64");
 const b64 = f => "data:image/png;base64," + fs.readFileSync(A + f).toString("base64");
@@ -58,7 +62,7 @@ const ph = PHASES.map((p, n) => ({ ...p, n: n + 1, first: Math.min(...p.tasks.ma
 let g = `<div class="corner">Etapa</div>`;
 days.forEach((x, i) => g += `<div class="hc${i === W2 ? " w2" : ""}${we(x)}"><b>Día ${i + 1}</b>${short(x)}</div>`);
 const cols = (extra = "") => days.map((x, i) => `<i class="c${i === W2 ? " w2" : ""}${we(x)}" style="grid-column:${i + 1}"></i>`).join("") + extra;
-g += `<div class="rn sess"><span>Sesiones de dudas</span><small>lun, mié y vie · 8:00 am</small></div><div class="tr">${cols(sess.map(i => `<span class="dot" style="grid-column:${i + 1}">8:00</span>`).join(""))}</div>`;
+g += `<div class="rn sess"><span>Sesiones de dudas</span><small>lun, mié y vie · ${TIME}${TZ}</small></div><div class="tr">${cols(sess.map(i => `<span class="dot" style="grid-column:${i + 1}">${TIMES}</span>`).join(""))}</div>`;
 ph.forEach(p => {
   const final = p.id === "g";
   g += `<div class="rn" data-rn="${p.id}"><span>${esc(p.name)}</span><small>${p.tasks.filter(t => !t.milestone).length} pasos</small></div>`;
@@ -123,6 +127,7 @@ code { font-family: ui-monospace, Consolas, monospace; font-size: .84em; backgro
 .keys div { padding: 16px 20px; border-left: 1px solid var(--line); display: flex; flex-direction: column; gap: 2px; min-width: 0; }
 .keys div:first-child { border-left: 0; }
 .keys span { font-size: 13px; color: var(--dim); }
+.keys small { font-size: 12px; color: var(--dim); }
 .keys b { font-family: var(--font-head); font-size: 22px; font-weight: 600; letter-spacing: -.02em; color: var(--brand); }
 .keys .go b { background: var(--hl); color: var(--hl-ink); padding: 0 6px; border-radius: 4px; justify-self: start; align-self: flex-start; }
 @media (max-width: 680px) { .keys { grid-template-columns: 1fr; } .keys div { border-left: 0; border-top: 1px solid var(--line); } .keys div:first-child { border-top: 0; } }
@@ -268,7 +273,7 @@ dd { margin: 2px 0 0; font-size: 14px; }
     <p class="lead">Este es tu camino paso a paso. Tú completas cada etapa desde tu panel de yavendió!, y nosotros te acompañamos en cada sesión de dudas. WhatsApp e Instagram se conectan al final, cuando tu vendedor ya está listo, para que ningún cliente real hable con un vendedor a medio configurar.</p>
     <div class="keys">
       <div><span>Kickoff</span><b>${short(days[0])}</b></div>
-      <div><span>Sesiones de dudas</span><b>lun · mié · vie, 8:00 am</b></div>
+      <div><span>Sesiones de dudas</span><b>lun · mié · vie, ${TIME}</b>${TZ ? `<small>${TZ.trim()}</small>` : ""}</div>
       <div class="go"><span>Salida en vivo</span><b>${short(days[N - 1])}</b></div>
     </div>
     <div class="mid">
@@ -297,7 +302,7 @@ dd { margin: 2px 0 0; font-size: 14px; }
     <ul class="ms">
       <li><b>Tú lo configuras</b>Cada paso se hace en tu panel. Te decimos exactamente dónde.</li>
       <li><b>Nosotros te acompañamos</b>Revisamos tu avance y te ayudamos a mejorar tu configuración.</li>
-      <li><b>Resuelves dudas 3 veces por semana</b>Sesión grupal lunes, miércoles y viernes a las 8:00 am.</li>
+      <li><b>Resuelves dudas 3 veces por semana</b>Sesión grupal lunes, miércoles y viernes a las ${TIME}${TZ}.</li>
     </ul>
   </section>
 
@@ -327,7 +332,7 @@ dd { margin: 2px 0 0; font-size: 14px; }
           <li>Lo que te toca antes de la siguiente sesión.</li>
           <li>Respuestas del vendedor que quieras mejorar.</li>
         </ul>
-        <div class="dates">${sess.map(i => `<span>${short(days[i])} · 8:00 am</span>`).join("")}</div>
+        <div class="dates">${sess.map(i => `<span>${short(days[i])} · ${TIME}</span>`).join("")}</div>
       </div>
     </div>
   </section>
