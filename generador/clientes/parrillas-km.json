@@ -1,0 +1,90 @@
+{
+ "start": "2026-10-16",
+ "merchant": "Parrillas K&M",
+ "merchantId": "",
+ "shopify": false,
+ "calendarDays": true,
+ "syncUrl": "https://script.google.com/macros/s/AKfycbz9ST02RYsL3NvR47lUev9eQXLMF0tjTAuVPpru7Rm5jbLViZCtvBAztndt9p2fnEhFWQ/exec",
+ "out": "parrillas-km",
+ "videos": {
+  "k1": [
+   {
+    "id": "OD4cXbN1-qg",
+    "title": "¿Qué es Yavendió!",
+    "n": 1
+   }
+  ],
+  "n1": [
+   {
+    "id": "kkFti-ZAelc",
+    "title": "Completa los datos de tu negocio",
+    "n": 7
+   }
+  ],
+  "n2": [
+   {
+    "id": "zVtib7Rit5Y",
+    "title": "Define la personalidad de tu vendedor",
+    "n": 10
+   }
+  ],
+  "r2": [
+   {
+    "id": "ivd0PMNLAqU",
+    "title": "Configura los mensajes de tu vendedor",
+    "n": 11
+   }
+  ],
+  "r3": [
+   {
+    "id": "sGv5bhOFbKw",
+    "title": "Configura tus envíos y zonas de entrega",
+    "n": 8
+   }
+  ],
+  "r4": [
+   {
+    "id": "G4q6JH4H3iY",
+    "title": "Configura los métodos de pago de tu vendedor",
+    "n": 9
+   }
+  ],
+  "b1": [
+   {
+    "id": "t_Lfw31A45Q",
+    "title": "Arma las preguntas frecuentes de tu vendedor",
+    "n": 13
+   }
+  ],
+  "p2": [
+   {
+    "id": "boDpf7JfRNo",
+    "title": "Gestiona tus pedidos cerrados",
+    "n": 14
+   }
+  ],
+  "g3": [
+   {
+    "id": "VdAwMRhC3c0",
+    "title": "Mide el rendimiento de tus campañas de Meta Ads a WhatsApp",
+    "n": 30
+   },
+   {
+    "id": "os5u26Yfksk",
+    "title": "Optimiza tus campañas con eventos (API Conversiones)",
+    "n": 31
+   }
+  ],
+  "f1": [
+   {
+    "drive": "1Ewl0NBGxfg9xSLtl3lGDXPzFXmSuLq84",
+    "title": "Configura los flujos y reglas de tu vendedor",
+    "n": 12
+   }
+  ]
+ },
+ "platform": "woocommerce",
+ "logoBlack": "../logos/km-negro.png",
+ "logoWhite": "../logos/km-blanco.png",
+ "slug": "parrillas-km"
+}
