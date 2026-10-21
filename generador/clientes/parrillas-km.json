@@ -84,7 +84,7 @@
   ]
  },
  "platform": "woocommerce",
- "logoBlack": "../logos/km-negro.png",
- "logoWhite": "../logos/km-blanco.png",
+ "logoBlack": "logos/km-negro.png",
+ "logoWhite": "logos/km-blanco.png",
  "slug": "parrillas-km"
 }

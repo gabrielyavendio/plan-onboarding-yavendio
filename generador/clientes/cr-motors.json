@@ -84,6 +84,6 @@
   ]
  },
  "platform": "woocommerce",
- "logoBlack": "../logos/crm-logo.png",
- "logoWhite": "../logos/crm-blanco.png"
+ "logoBlack": "logos/crm-logo.png",
+ "logoWhite": "logos/crm-blanco.png"
 }

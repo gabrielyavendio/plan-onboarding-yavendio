@@ -84,8 +84,8 @@
   ]
  },
  "platform": "none",
- "logoBlack": "../logos/clicky-logo.png",
- "logoWhite": "../logos/clicky-logo.png",
+ "logoBlack": "logos/clicky-logo.png",
+ "logoWhite": "logos/clicky-logo.png",
  "kicker": "Periodo de gracia de 7 días",
  "days": 7,
  "periodLabel": "1 semana",

@@ -84,6 +84,6 @@
   ]
  },
  "platform": "woocommerce",
- "logoBlack": "../logos/tm-logo.png",
- "logoWhite": "../logos/tm-blanco.png"
+ "logoBlack": "logos/tm-logo.png",
+ "logoWhite": "logos/tm-blanco.png"
 }
