@@ -1,0 +1,214 @@
+{
+ "start": "2026-10-27",
+ "merchant": "Mascopet",
+ "merchantId": "",
+ "shopify": false,
+ "syncUrl": "https://script.google.com/macros/s/AKfycbz9ST02RYsL3NvR47lUev9eQXLMF0tjTAuVPpru7Rm5jbLViZCtvBAztndt9p2fnEhFWQ/exec",
+ "out": "mascopet",
+ "videos": {
+  "k1": [
+   {
+    "id": "OD4cXbN1-qg",
+    "title": "¿Qué es Yavendió!",
+    "n": 1
+   }
+  ],
+  "n1": [
+   {
+    "id": "kkFti-ZAelc",
+    "title": "Completa los datos de tu negocio",
+    "n": 7
+   }
+  ],
+  "n2": [
+   {
+    "id": "zVtib7Rit5Y",
+    "title": "Define la personalidad de tu vendedor",
+    "n": 10
+   }
+  ],
+  "r2": [
+   {
+    "id": "ivd0PMNLAqU",
+    "title": "Configura los mensajes de tu vendedor",
+    "n": 11
+   }
+  ],
+  "r3": [
+   {
+    "id": "sGv5bhOFbKw",
+    "title": "Configura tus envíos y zonas de entrega",
+    "n": 8
+   }
+  ],
+  "r4": [
+   {
+    "id": "G4q6JH4H3iY",
+    "title": "Configura los métodos de pago de tu vendedor",
+    "n": 9
+   }
+  ],
+  "b1": [
+   {
+    "id": "t_Lfw31A45Q",
+    "title": "Arma las preguntas frecuentes de tu vendedor",
+    "n": 13
+   }
+  ],
+  "p2": [
+   {
+    "id": "boDpf7JfRNo",
+    "title": "Gestiona tus pedidos cerrados",
+    "n": 14
+   }
+  ],
+  "g3": [
+   {
+    "id": "VdAwMRhC3c0",
+    "title": "Mide el rendimiento de tus campañas de Meta Ads a WhatsApp",
+    "n": 30
+   },
+   {
+    "id": "os5u26Yfksk",
+    "title": "Optimiza tus campañas con eventos (API Conversiones)",
+    "n": 31
+   }
+  ],
+  "f1": [
+   {
+    "drive": "1Ewl0NBGxfg9xSLtl3lGDXPzFXmSuLq84",
+    "title": "Configura los flujos y reglas de tu vendedor",
+    "n": 12
+   }
+  ]
+ },
+ "logoBlack": "logos/mascopet.png",
+ "logoWhite": "logos/mascopet.png",
+ "logoHeight": 56,
+ "platform": "none",
+ "calendarDays": true,
+ "dates": [
+  "2026-10-27",
+  "2026-10-28",
+  "2026-10-29",
+  "2026-10-30",
+  "2026-10-31",
+  "2026-11-10",
+  "2026-11-11",
+  "2026-11-12",
+  "2026-11-13",
+  "2026-11-14",
+  "2026-11-15",
+  "2026-11-16",
+  "2026-11-17",
+  "2026-11-18",
+  "2026-11-19"
+ ],
+ "glanceTitle": "Tu implementación de un vistazo",
+ "gapLabel": "Retomamos",
+ "gapNote": "del 1 al 9 de noviembre no hay tareas, y retomamos el martes 10.",
+ "schedule": {
+  "k1": [
+   0,
+   1
+  ],
+  "k2": [
+   0,
+   1
+  ],
+  "k3": [
+   0,
+   1
+  ],
+  "c1": [
+   0,
+   1
+  ],
+  "c2": [
+   1,
+   1
+  ],
+  "c3": [
+   1,
+   1
+  ],
+  "n1": [
+   1,
+   1
+  ],
+  "n2": [
+   1,
+   1
+  ],
+  "r2": [
+   2,
+   1
+  ],
+  "r3": [
+   2,
+   1
+  ],
+  "r4": [
+   2,
+   1
+  ],
+  "b1": [
+   3,
+   2
+  ],
+  "f1": [
+   5,
+   1
+  ],
+  "f2": [
+   5,
+   4
+  ],
+  "f3": [
+   8,
+   1
+  ],
+  "p1": [
+   8,
+   2
+  ],
+  "p2": [
+   10,
+   1
+  ],
+  "p3": [
+   10,
+   1
+  ],
+  "w1": [
+   11,
+   1
+  ],
+  "w2": [
+   11,
+   2
+  ],
+  "w3": [
+   12,
+   1
+  ],
+  "g1": [
+   13,
+   1
+  ],
+  "g2": [
+   13,
+   1
+  ],
+  "g3": [
+   14,
+   1
+  ],
+  "g4": [
+   14,
+   1
+  ]
+ },
+ "h1": "El vendedor IA de Mascopet, listo el 19 de noviembre",
+ "datesNote": "15 días de trabajo en dos etapas: del martes 27 al sábado 31 de octubre, y del martes 10 al jueves 19 de noviembre."
+}

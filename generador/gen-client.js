@@ -33,7 +33,7 @@ if (CFG.overrides) for (const [id, o] of Object.entries(CFG.overrides)) CLIENT[i
 PHASES.forEach(p => p.tasks.forEach(t => Object.assign(t, CLIENT[t.id] || {})));
 // planes más cortos (p. ej. 1 semana) traen su propio calendario: { id: [día, duración] }
 if (CFG.schedule) PHASES.forEach(p => p.tasks.forEach(t => { const x = CFG.schedule[t.id]; if (x) { t.d = x[0]; t.len = x[1]; } }));
-const N = CFG.days || 10;
+const N = CFG.dates ? CFG.dates.length : (CFG.days || 10);
 // hora de las sesiones en la zona del merchant (las sesiones son 8:00 am hora de Lima)
 const TIME = CFG.sessionTime || "8:00 am", TIMES = TIME.replace(/ ?am$/, ""), TZ = CFG.sessionTz ? " " + CFG.sessionTz : "";
 const PERIOD = CFG.periodLabel || (CFG.calendarDays ? "10 días" : "2 semanas");
@@ -47,8 +47,11 @@ const MS = MONTHS.map(m => m.slice(0, 3));
 const [y, m, d] = START.split("-").map(Number);
 const days = []; const cur = new Date(y, m - 1, d);
 // calendarDays: cuenta sábados y domingos; si no, solo lunes a viernes
-while (days.length < N) { if (CFG.calendarDays || cur.getDay() % 6) days.push(new Date(cur)); cur.setDate(cur.getDate() + 1); }
-const W2 = N < 10 ? -1 : CFG.calendarDays ? days.findIndex((x, i) => i > 0 && x.getDay() === 1) : 5;
+if (CFG.dates) CFG.dates.forEach(s => { const [a, b, c] = s.split("-").map(Number); days.push(new Date(a, b - 1, c)); });
+else while (days.length < N) { if (CFG.calendarDays || cur.getDay() % 6) days.push(new Date(cur)); cur.setDate(cur.getDate() + 1); }
+// GAP: primer día después de una pausa en el calendario (solo con fechas explícitas)
+const GAP = CFG.dates ? days.findIndex((x, i) => i > 0 && (x - days[i - 1]) > 86400000 * 1.5) : -1;
+const W2 = GAP > 0 ? GAP : N < 10 ? -1 : CFG.calendarDays ? days.findIndex((x, i) => i > 0 && x.getDay() === 1) : 5;
 const we = x => (x.getDay() % 6 ? "" : " we");
 const short = x => `${DS[x.getDay()]} ${x.getDate()} ${MS[x.getMonth()]}`;
 const long = x => `${DAYS[x.getDay()]} ${x.getDate()} de ${MONTHS[x.getMonth()]}`;
@@ -60,8 +63,8 @@ const ph = PHASES.map((p, n) => ({ ...p, n: n + 1, first: Math.min(...p.tasks.ma
 
 // ---- Gantt ----
 let g = `<div class="corner">Etapa</div>`;
-days.forEach((x, i) => g += `<div class="hc${i === W2 ? " w2" : ""}${we(x)}"><b>Día ${i + 1}</b>${short(x)}</div>`);
-const cols = (extra = "") => days.map((x, i) => `<i class="c${i === W2 ? " w2" : ""}${we(x)}" style="grid-column:${i + 1}"></i>`).join("") + extra;
+days.forEach((x, i) => g += `<div class="hc${i === W2 ? " w2" : ""}${i === GAP ? " gap" : ""}${we(x)}">${i === GAP ? `<span class="gapk">${esc(CFG.gapLabel || "Retomamos")}</span>` : ""}<b>Día ${i + 1}</b>${short(x)}</div>`);
+const cols = (extra = "") => days.map((x, i) => `<i class="c${i === W2 ? " w2" : ""}${i === GAP ? " gap" : ""}${we(x)}" style="grid-column:${i + 1}"></i>`).join("") + extra;
 g += `<div class="rn sess"><span>Sesiones de dudas</span><small>lun, mié y vie · ${TIME}${TZ}</small></div><div class="tr">${cols(sess.map(i => `<span class="dot" style="grid-column:${i + 1}">${TIMES}</span>`).join(""))}</div>`;
 ph.forEach(p => {
   const final = p.id === "g";
@@ -144,6 +147,8 @@ code { font-family: ui-monospace, Consolas, monospace; font-size: .84em; backgro
 .hc { text-align: center; border-left: 1px solid var(--line); }
 .hc b { display: block; font-family: var(--font-head); color: var(--fg); font-size: 14px; font-weight: 600; }
 .hc.w2, .c.w2 { border-left: 2px solid var(--brand-2); }
+.hc.w2.gap, .c.w2.gap { border-left: 6px double var(--brand-2); }
+.hc .gapk { display: block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--brand-2); }
 .hc.we, .c.we { background: var(--tint); }
 .rn { position: sticky; left: 0; z-index: 2; background: var(--surface); padding: 8px 12px 8px 18px; border-right: 1px solid var(--line); display: flex; flex-direction: column; justify-content: center; min-height: 48px; }
 .rn span { font-weight: 700; font-size: 14px; line-height: 1.25; }
@@ -269,7 +274,7 @@ dd { margin: 2px 0 0; font-size: 14px; }
 
   <section class="hero">
     <div class="kicker">${MERCHANT ? esc(MERCHANT) + " · " : ""}${CFG.kicker ? esc(CFG.kicker) : "Tu plan de arranque"}</div>
-    <h1>${MERCHANT ? "El vendedor IA de " + esc(MERCHANT) + ", listo en " + (CFG.periodLabelTitle || PERIOD) : "Tu vendedor IA, listo para vender en 2 semanas"}</h1>
+    <h1>${CFG.h1 ? esc(CFG.h1) : MERCHANT ? "El vendedor IA de " + esc(MERCHANT) + ", listo en " + (CFG.periodLabelTitle || PERIOD) : "Tu vendedor IA, listo para vender en 2 semanas"}</h1>
     <p class="lead">Este es tu camino paso a paso. Tú completas cada etapa desde tu panel de yavendió!, y nosotros te acompañamos en cada sesión de dudas. WhatsApp e Instagram se conectan al final, cuando tu vendedor ya está listo, para que ningún cliente real hable con un vendedor a medio configurar.</p>
     <div class="keys">
       <div><span>Kickoff</span><b>${short(days[0])}</b></div>
@@ -310,7 +315,7 @@ dd { margin: 2px 0 0; font-size: 14px; }
     <div class="kicker">Calendario</div>
     <h2>${CFG.glanceTitle ? esc(CFG.glanceTitle) : CFG.periodLabel ? "Tu " + esc(CFG.periodLabel) + " de un vistazo" : "Las 2 semanas de un vistazo"}</h2>
     <div class="gs"><div class="gantt">${g}</div></div>
-    <p class="note">Cuando completas todos los pasos de una etapa, aparece tachada en el calendario. ${CFG.calendarDays ? N + " días seguidos, contando sábado y domingo," : N + " días hábiles,"} de ${long(days[0])} a ${long(days[N - 1])}.${CFG.calendarDays ? " Los fines de semana van sombreados." : ""}${W2 > 0 ? " La línea morada marca el inicio de la segunda semana." : ""}</p>
+    <p class="note">Cuando completas todos los pasos de una etapa, aparece tachada en el calendario. ${CFG.datesNote ? esc(CFG.datesNote) : (CFG.calendarDays ? N + " días seguidos, contando sábado y domingo," : N + " días hábiles,") + " de " + long(days[0]) + " a " + long(days[N - 1]) + "."}${CFG.calendarDays ? " Los fines de semana van sombreados." : ""}${GAP > 0 ? " La doble línea morada marca la pausa: " + esc(CFG.gapNote || "") : W2 > 0 ? " La línea morada marca el inicio de la segunda semana." : ""}</p>
   </section>
 
   <section class="sec">
