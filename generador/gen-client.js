@@ -63,7 +63,7 @@ const ph = PHASES.map((p, n) => ({ ...p, n: n + 1, first: Math.min(...p.tasks.ma
 
 // ---- Gantt ----
 let g = `<div class="corner">Etapa</div>`;
-days.forEach((x, i) => g += `<div class="hc${i === W2 ? " w2" : ""}${i === GAP ? " gap" : ""}${we(x)}">${i === GAP ? `<span class="gapk">${esc(CFG.gapLabel || "Retomamos")}</span>` : ""}<b>Día ${i + 1}</b>${short(x)}</div>`);
+days.forEach((x, i) => g += `<div class="hc${i === W2 ? " w2" : ""}${i === GAP ? " gap" : ""}${we(x)}">${i === GAP && CFG.gapLabel ? `<span class="gapk">${esc(CFG.gapLabel)}</span>` : ""}<b>Día ${i + 1}</b>${short(x)}</div>`);
 const cols = (extra = "") => days.map((x, i) => `<i class="c${i === W2 ? " w2" : ""}${i === GAP ? " gap" : ""}${we(x)}" style="grid-column:${i + 1}"></i>`).join("") + extra;
 g += `<div class="rn sess"><span>Sesiones de dudas</span><small>lun, mié y vie · ${TIME}${TZ}</small></div><div class="tr">${cols(sess.map(i => `<span class="dot" style="grid-column:${i + 1}">${TIMES}</span>`).join(""))}</div>`;
 ph.forEach(p => {
