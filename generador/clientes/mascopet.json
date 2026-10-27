@@ -210,5 +210,22 @@
   ]
  },
  "h1": "El vendedor IA de Mascopet, listo el 19 de noviembre",
- "datesNote": "15 días de trabajo en dos etapas: del martes 27 al sábado 31 de octubre, y del martes 10 al jueves 19 de noviembre."
+ "datesNote": "15 días de trabajo en dos etapas: del martes 27 al sábado 31 de octubre, y del martes 10 al jueves 19 de noviembre.",
+ "overrides": {
+  "c1": {
+   "name": "Conectar tu tienda Bsale",
+   "desc": "Como ya vendes con Bsale, conectas tu cuenta y tus productos e inventario llegan a yavendió! sin cargarlos a mano.",
+   "where": "Integraciones del panel → Bsale.",
+   "check": "La integración con Bsale aparece conectada."
+  },
+  "c2": {
+   "name": "Revisar el catálogo sincronizado",
+   "desc": "Confirma que llegaron todos tus productos con su stock. Si algo falta o está mal, corrígelo en Bsale.",
+   "where": "<code>/dashboard/products</code>",
+   "check": "Todos tus productos están en el panel con su stock."
+  },
+  "c3": {
+   "desc": "Cada producto con precio, fotos, tallas y variantes correctas."
+  }
+ }
 }
