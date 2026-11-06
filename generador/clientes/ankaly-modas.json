@@ -189,6 +189,7 @@
    1
   ]
  },
- "logoText": "ANKALY MODAS",
- "logoTextBg": "#1C1C1C"
+ "logoBlack": "logos/ankaly.png",
+ "logoWhite": "logos/ankaly.png",
+ "logoHeight": 56
 }
