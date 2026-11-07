@@ -51,7 +51,7 @@ if (CFG.dates) CFG.dates.forEach(s => { const [a, b, c] = s.split("-").map(Numbe
 else while (days.length < N) { if (CFG.calendarDays || cur.getDay() % 6) days.push(new Date(cur)); cur.setDate(cur.getDate() + 1); }
 // GAP: primer día después de una pausa en el calendario (solo con fechas explícitas)
 const GAP = CFG.dates ? days.findIndex((x, i) => i > 0 && (x - days[i - 1]) > 86400000 * 1.5) : -1;
-const W2 = GAP > 0 ? GAP : N < 10 ? -1 : CFG.calendarDays ? days.findIndex((x, i) => i > 0 && x.getDay() === 1) : 5;
+const W2 = GAP > 0 ? GAP : CFG.weekLine !== undefined ? CFG.weekLine : N < 10 ? -1 : CFG.calendarDays ? days.findIndex((x, i) => i > 0 && x.getDay() === 1) : 5;
 const we = x => (x.getDay() % 6 ? "" : " we");
 const short = x => `${DS[x.getDay()]} ${x.getDate()} ${MS[x.getMonth()]}`;
 const long = x => `${DAYS[x.getDay()]} ${x.getDate()} de ${MONTHS[x.getMonth()]}`;
