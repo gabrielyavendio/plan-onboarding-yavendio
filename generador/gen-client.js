@@ -7,7 +7,8 @@ const START = CFG.start || "2026-09-29";
 const MERCHANT = CFG.merchant || "";
 const OUT = CFG.out || "plan";
 const SLUG = CFG.slug || (MERCHANT ? MERCHANT.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-") : "plan");
-const A = "C:/Users/LENOVO/.claude/plugins/cache/yavendio-magic/magic/980482cde6a3/skills/yavendio-brand/assets/web/";
+// logos de yavendió! y Yago copiados al repo (la carpeta del plugin cambia con cada actualización)
+const A = __dirname + "/brand/";
 const PHASES = new Function(fs.readFileSync("phases.js", "utf8") + "; return PHASES;")();
 const CLIENT = {
   k1: { check: "Conoces el plan y tu fecha de salida en vivo." },
